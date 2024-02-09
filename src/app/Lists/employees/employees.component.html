@@ -1,0 +1,41 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title-group>
+            <mat-card-title>
+                <h3>Funcionários</h3>
+
+            </mat-card-title>
+            <button mat-flat-button color="primary" routerLink="./create"><mat-icon>add</mat-icon>Adicionar</button>
+        </mat-card-title-group>
+    </mat-card-header>
+
+    <mat-card-content>
+        <!-- <app-table [dataSource]="employees"
+            [displayedColumns]="['id', 'name', 'email', 'document', 'telephone', '']"></app-table> -->
+        <table class="table ">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Documento</th>
+                    <th>Celular</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of employees">
+                    <td>{{employee.id}}</td>
+                    <td>{{employee.name}}</td>
+                    <td>{{employee.email}}</td>
+                    <td>{{employee.document}}</td>
+                    <td>{{employee.telephone}}</td>
+                    <td class="text-center">
+                        <button class="btn btn-primary btn-sm mx-4 fw-bold" routerLink="./{{employee.id}}">Visualizar</button>
+                        <button class="btn btn-danger btn-sm fw-bold" (click)="openDeleteDialog(employee.id)">Remover</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </mat-card-content>
+</mat-card>

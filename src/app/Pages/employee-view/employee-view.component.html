@@ -1,0 +1,136 @@
+<form [formGroup]="employeeForm" (ngSubmit)="saveEmployee()">
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title-group>
+                <mat-card-title>
+                    <h3>{{employee.name}}</h3>
+
+                </mat-card-title>
+                <button mat-flat-button color="primary" routerLink="..">Voltar</button>
+            </mat-card-title-group>
+        </mat-card-header>
+
+        <mat-card-content>
+            <mat-form-field>
+                <mat-label>Nome</mat-label>
+                <input formControlName="name" matInput [value]="employee.name">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>E-mail</mat-label>
+                <input formControlName="email" matInput [value]="employee.email">
+                <mat-error *ngIf="employeeForm.get('email').hasError('email')">
+                    Insira um e-mail válido
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>CPF</mat-label>
+                <input formControlName="document" maxlength="14" matInput [value]="employee.document"
+                    (input)="onCPFInput($event)">
+                <mat-error *ngIf="employeeForm.get('document').hasError('pattern')">
+                    O CPF deve ter o formato xxx.xxx.xxx-xx
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Telefone</mat-label>
+                <input formControlName="telephone" maxlength="15" matInput [value]="employee.telephone"
+                    (input)="onTelephoneInput($event)">
+                <mat-error *ngIf="employeeForm.get('telephone').hasError('pattern')">
+                    O telefone deve ter o formato (xx) xxxxxxx-xxxx
+                </mat-error>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-raised-button color="primary">Atualizar</button>
+        </mat-card-actions>
+    </mat-card>
+
+</form>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title-group>
+            <mat-card-title>
+                <h3>Habilidades</h3>
+
+            </mat-card-title>
+            <form [formGroup]="knowledgeForm" (ngSubmit)="saveKnowledge(employee.id)">
+                <mat-form-field>
+                    <mat-label>Habilidades</mat-label>
+                    <mat-select formControlName="name">
+                        <mat-option [value]="item.id" *ngFor="let item of knowledgeOptions">
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-flat-button color="primary"  ><mat-icon>add</mat-icon>Adicionar</button>
+            </form>
+            
+
+            <!-- <button mat-flat-button color="primary" routerLink="..">Voltar</button> -->
+        </mat-card-title-group>
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <table class="table ">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let knowledge of employeeKnowledge">
+                    <td>{{knowledge.knowledge.name}}</td>
+                    <td class="text-center">
+                        <!-- <button class="btn btn-primary btn-sm mx-4 fw-bold" routerLink="./{{employee.id}}">Visualizar</button> -->
+                        <button class="btn btn-danger btn-sm fw-bold" (click)="openDeleteDialog(employee.id, knowledge.knowledge.id, knowledge.id)">Remover</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </mat-card-content>
+    <!-- <mat-card-actions align="end">
+                <button mat-raised-button color="primary">Atualizar</button>
+            </mat-card-actions> -->
+</mat-card>
+
+<mat-card>
+    <mat-card-header>
+        <mat-card-title-group>
+            <mat-card-title>
+                <h3>Match com Empresas</h3>
+
+            </mat-card-title>
+            
+            
+        </mat-card-title-group>
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <table class="table ">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let company of matchingKnowledge">
+                    <td>{{company.name}}</td>
+                    <td><span *ngFor="let knowledge of company.knowledge">{{knowledge.knowledge_details[0].name}}, </span></td>
+                    <td class="text-center">
+                        <!-- <button class="btn btn-primary btn-sm mx-4 fw-bold" routerLink="./{{employee.id}}">Visualizar</button> -->
+                        <!-- <button class="btn btn-danger btn-sm fw-bold" (click)="openDeleteDialog(employee.id, knowledge.knowledge.id, knowledge.id)">Remover</button> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </mat-card-content>
+
+</mat-card>

@@ -1,0 +1,38 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title-group>
+            <mat-card-title>
+                <h3>Habilidades</h3>
+
+            </mat-card-title>
+            <button mat-flat-button  color="primary"><mat-icon>add</mat-icon>Adicionar</button>
+        </mat-card-title-group>
+    </mat-card-header>
+
+    <mat-card-content>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let knowledge of knowledges">
+                    <td>{{knowledge.id}}</td>
+                    <td>{{knowledge.name}}</td>
+                    <td class="text-center">
+                        <!-- <button mat-icon-button> <mat-icon>edit</mat-icon></button>
+                        <button mat-icon-button> <mat-icon>delete</mat-icon></button> -->
+                        <button class="btn btn-primary btn-sm mx-4 fw-bold">Editar</button>
+                        <button class="btn btn-danger btn-sm fw-bold">Remover</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </mat-card-content>
+
+</mat-card>
+
